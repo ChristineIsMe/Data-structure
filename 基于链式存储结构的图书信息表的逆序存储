@@ -1,0 +1,66 @@
+#include <iostream>
+#define OK 1
+#define OVERFlOW -2
+#define ERROR 0
+#include <iomanip>
+//这道题用到冒泡排序。 
+using namespace std;
+class Book{
+	public:
+	string number;
+	string name;
+	float  price;
+};
+class Sqlist{        //顺序表的定义 
+	public:
+		Book *elem;
+		int length;
+};
+
+void InitList(Sqlist &L){  //顺序表的初始化 
+	L.elem=new Book[1000];
+	if(!L.elem) exit (OVERFlOW);
+	L.length=0;
+	return; 
+}
+
+void Insert(Sqlist &L){
+	for(int i=0;i<1000;i++){
+		cin>>L.elem[i].number>>L.elem[i].name>>L.elem[i].price; 
+		L.length++;
+		if(L.elem[i].number=="0"&&L.elem[i].name=="0"&&L.elem[i].price==0)
+		{
+			L.length--;
+			return;
+		}
+	}
+}
+
+void Sort(Sqlist &L){
+	for(int i=0;i<L.length;i++)
+	{
+		for(int j=0;j<L.length-i-1;j++)
+		{
+			if(L.elem[j].price<L.elem[j+1].price)
+			{
+				Book book=L.elem[j];
+				L.elem[j]=L.elem[j+1];
+				L.elem[j+1]=book;
+			}
+		}
+	}
+}
+void Print(Sqlist L){
+	cout<<L.length<<endl;
+	for(int i=0;i<L.length;i++)
+	{
+		cout<<L.elem[i].number<<" "<<L.elem[i].name<<""<<fixed<<setprecision(2)<<" "<<L.elem[i].price<<endl;
+	}
+}
+int main(){
+	Sqlist L;
+	InitList(L);
+	Insert(L);
+	Sort(L);
+	Print(L);
+}
