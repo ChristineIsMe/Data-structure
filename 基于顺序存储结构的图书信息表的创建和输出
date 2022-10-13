@@ -1,0 +1,55 @@
+//#include<string> 
+//#include<stdio.h>
+#include<iostream>
+#define OVERFLOW -2
+#include <iomanip>
+using namespace std;
+
+class Book{    //定义一个图书类型 
+	public:
+		string number,name;
+		float price;
+};
+class Sqlist{      //顺序表的存储结构定义 
+	public:
+		int length;
+		Book*elem; 
+};
+void Init(Sqlist &L)   //顺序表的初始化 
+{
+	L.elem=new Book[1000];
+	if(!L.elem) exit(1); 
+	L.length=0;
+	
+}
+
+void Insert(Sqlist &L)
+{
+	for(int i=0;i<1000;i++)
+	{
+		cin>>L.elem[i].number>>L.elem[i].name>>L.elem[i].price;
+		L.length++;
+		if(L.elem[i].number=="0"&&L.elem[i].name=="0"&&L.elem[i].price==0)
+		{
+			L.length--;
+			return;
+		}
+		
+	}
+	 
+}
+void Print(Sqlist L)
+{
+	cout<<L.length<<endl;
+	for(int i=0;i<L.length;i++){
+		printf("%s %s %.2f\n",L.elem[i].number.c_str(),L.elem[i].name.c_str(),L.elem[i].price);
+	}
+	
+	
+}
+int main(){
+	Sqlist L;
+	Init(L);
+	Insert(L);
+	Print(L);
+}
