@@ -1,0 +1,69 @@
+#include<bits/stdc++.h>
+using namespace std;
+class Book{
+    public:
+    string num;
+    string name;
+    double price;
+};
+class Sqlist{
+    public:
+    Book *elem;
+    int length;
+};
+void InitSert(Sqlist &L){
+    L.elem=new Book[1000];     //顺序表初始化
+    if(!L.elem) return;
+    L.length=0;
+    return;
+}
+
+void Insert(Sqlist &L){  //为顺序表赋值操作；
+        int n;
+        cin>>n;
+	for(int i=0;i<n;i++){
+		cin>>L.elem[i].num>>L.elem[i].name>>L.elem[i].price;
+		L.length++;
+		if(L.elem[i].num=="0"&&L.elem[i].name=="0"&&L.elem[i].price==0)
+		{
+			L.length--;
+			return;
+		}
+	}
+}
+void Search(Sqlist L){
+    Book max=L.elem[L.length];
+    int flag[L.length];
+    int k=0;
+    for(int i=0;i<L.length;i++){
+        flag[i]=0;
+    }
+    for(int i=1;i<L.length;i++){    //第一次循环寻找最大值；
+        if(L.elem[i].price>max.price)
+            max=L.elem[i];
+    }
+    for(int i=0;i<L.length;i++){    //第二次循环标记最大值并计数；
+       if(L.elem[i].price==max.price)
+       {
+            flag[i]=1;
+            k++;
+       }
+
+    }
+    cout<<k<<endl;
+    for(int i=0;i<L.length;i++){
+        if(flag[i]==1)
+            cout<<L.elem[i].num<<" "<<L.elem[i].name<<" "<<fixed<<setprecision(2)<<L.elem[i].price<<endl;
+    }
+    return;
+}
+int main(){
+    Sqlist L;
+    InitSert(L);
+    Insert(L);
+    Search(L);
+}
+
+
+
+
