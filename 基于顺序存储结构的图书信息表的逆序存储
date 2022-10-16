@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Book{
+    public:
+    string num;
+    string name;
+    double price;
+};
+class Sqlist{
+    public:
+    Book *elem;
+    int length;
+};
+void InitSert(Sqlist &L){
+    L.elem=new Book[1000];
+    if(!L.elem) return;
+    L.length=0;
+    return;
+}
+
+void Insert(Sqlist &L){
+        int n;
+        cin>>n;
+	for(int i=n-1;i>=0;i--){
+		cin>>L.elem[i].num>>L.elem[i].name>>L.elem[i].price;
+		L.length++;
+		if(L.elem[i].num=="0"&&L.elem[i].name=="0"&&L.elem[i].price==0)
+		{
+			L.length--;
+			return;
+		}
+	}
+}
+void Output(Sqlist L){
+    for(int i=0;i<L.length;i++){
+       cout<<L.elem[i].num<<" "<<L.elem[i].name<<" "<<fixed<<setprecision(2)<<L.elem[i].price<<endl;
+    }
+}
+int main(){
+    Sqlist L;
+    InitSert(L);
+    Insert(L);
+    Output(L);
+}
