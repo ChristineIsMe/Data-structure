@@ -1,0 +1,68 @@
+#include<stdio.h>
+typedef struct{
+  float imagpart;      //虚部
+  float realpart;      //实部
+}Complex;              //定义复数的抽象数据类型
+
+
+void Assign(Complex*A,float real,float imag);
+void Add(Complex A, Complex B,Complex*C);
+void Minus(Complex A,Complex B,Complex*C);
+void Multiply(Complex A,Complex B,Complex*C);
+void Gonger(Complex*Z);                          //函数的声明。
+void Divide(Complex A,Complex B,Complex*C);
+                   
+
+void Assign(Complex*A,float real,float imag)  //给 定义的复数抽象数据类型 赋值
+{
+   A->realpart=real;
+   A->imagpart=imag;
+}
+
+void Add(Complex A, Complex B,Complex*C)    //该函数功能是 复数求和
+{
+   C->realpart=A.realpart+B.realpart;
+   C->imagpart=A.imagpart+B.imagpart;
+}
+void Minus(Complex A,Complex B,Complex*C)    //该函数功能是 复数相减
+{
+    C->realpart=A.realpart-B.realpart;
+    C->imagpart=A.imagpart-B.imagpart;
+}
+void Multiply(Complex A,Complex B,Complex*C)      //该函数功能是 实现两个复数相乘
+{
+  C->realpart=A.realpart*B.realpart-A.imagpart*B.imagpart;
+  C->imagpart=A.imagpart*B.realpart+A.realpart*B.imagpart;
+}
+void Gonger(Complex*Z)     //求共轭复数  因为下面复数相除要用到共轭复数
+{
+   Z->imagpart=-(Z->imagpart);    
+}
+void Divide(Complex A,Complex B,Complex*C)     //该函数功能是 实现两个复数相除
+{
+  Gonger(&B);
+  C->realpart=(A.realpart*B.realpart+A.imagpart*B.imagpart)/(B.imagpart*B.imagpart+B.realpart*B.realpart);
+  C->imagpart=(A.imagpart*B.realpart+A.realpart*B.imagpart)/(B.imagpart*B.imagpart+B.realpart*B.realpart);
+}
+
+
+int main()
+{
+    Complex x1,x2,x3,x4,X;
+    Assign(&x1,5.0,8.0);            //给复数x1赋值
+    printf("%lf %lf\n",x1.realpart,x1.imagpart);
+    Assign(&x2,4.0,3.0);            //给复数x2赋值；
+    printf("%lf %lf\n",x2.realpart,x2.imagpart);
+    
+    Add(x1,x2,&x3);        // 这里以&打头的参x3表示 引用型参数
+    printf("%lf %lf\n",x3.realpart,x3.imagpart);
+ 
+    Multiply(x1,x2,&x4);        //两个复数相乘
+    printf("%lf %lf\n",x4.realpart,x4.imagpart);
+  
+    Divide(x4,x3,&X);          //两个复数相除
+    printf("%lf %lf\n",X.realpart,X.imagpart);
+      
+    return 0;
+    
+}
